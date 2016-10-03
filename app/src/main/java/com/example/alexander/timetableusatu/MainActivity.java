@@ -221,7 +221,6 @@ public class MainActivity extends AppCompatActivity{
         if (id == R.id.action_DatePikerDialog) {
             showDialog(DIALOG_DATE);
         }
-        
         if (id == R.id.action_today){
             Calendar c = new GregorianCalendar();
             todayDate = normalDay(c.get(Calendar.DATE)) + "." + normalMonth(c.get(Calendar.MONTH)) + "." + c.get(Calendar.YEAR);
