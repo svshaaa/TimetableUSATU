@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">Timetable USATU</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="Start_Using">Start Using</string>
+    <string name="greet_text_slogan">Schedule of university is always in your pocket</string>
+    <string name="choice_next">OK</string>
+    <string name="choice_title">Select the group</string>
+    <string name="choice_group_text">Please select your department, course and group</string>
+    <string name="faculty">Faculty:</string>
+    <string name="course">Course:</string>
+    <string name="group">Group:</string>
+    <string name="fragment1">Fragment 1</string>
+    <string name="fragment2">Fragment 2</string>
+
+    <string-array name="weeks_list">
+        <item>1 неделя</item>
+        <item>2 неделя</item>
+        <item>3 неделя</item>
+        <item>4 неделя</item>
+        <item>5 неделя</item>
+        <item>6 неделя</item>
+        <item>7 неделя</item>
+        <item>8 неделя</item>
+        <item>9 неделя</item>
+        <item>10 неделя</item>
+        <item>11 неделя</item>
+        <item>12 неделя</item>
+        <item>13 неделя</item>
+        <item>14 неделя</item>
+        <item>15 неделя</item>
+        <item>16 неделя</item>
+        <item>17 неделя</item>
+        <item>18 неделя</item>
+    </string-array>
+
+</resources>

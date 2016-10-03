@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#338db8</color>
+    <color name="colorPrimaryDark">#3286ae</color>
+    <color name="colorAccent">#40c1ff</color>
+    <color name="colorLightBlue">#139dd1</color>
+    <color name="colorWhite">#ffffff</color>
+    <color name="colorDissapear">#00ffffff</color>
+
+    <color name="generalBackground">#f4f4f4</color>
+    <color name="timeBackground">#c8c8c8</color>
+
+    <color name="fizvospitanieBackground">#f3e9b1</color>
+    <color name="practiceBackground">#FFBB8E</color>
+    <color name="lectureBackground">#7fdce6</color>
+    <color name="lecrureAndPracticeBackground">#99d482</color>
+    <color name="labaBackground">#c5bcf8</color>
+
+    <color name="transparently">#00ffffff</color>
+    <color name="background_material">#eeeeee</color>
+</resources>

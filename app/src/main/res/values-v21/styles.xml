@@ -1,0 +1,46 @@
+<resources>>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColorPrimaryInverse">@color/colorLightBlue</item>
+        <item name="android:colorBackground">@color/background_material</item>
+        <item name="android:datePickerDialogTheme">@style/Dialog.Theme</item>
+    </style>
+
+    // Style for DateTimePiker
+    <style name="Dialog.Theme" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorPrimary">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorPrimary</item>
+    </style>
+
+    <style name="Widget.MyApp.HeaderBar.Spinner" parent="Widget.AppCompat.Light.Spinner.DropDown.ActionBar">
+        <item name="android:background">?android:selectableItemBackground</item>
+        <item name="android:dropDownSelector">?android:selectableItemBackground</item>
+        <item name="android:divider">@null</item>
+        <item name="android:overlapAnchor">true</item>
+    </style>
+
+    //style for GreetActivity
+    <style name="AppTheme.GreetActivityTheme">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:statusBarColor">@color/colorLightBlue</item>
+    </style>
+
+    // Style for blue button
+    <style name="AppTheme.ButtonTheme">
+        <item name="android:background">@color/colorLightBlue</item>
+        <item name="android:paddingLeft">30dp</item>
+        <item name="android:paddingRight">30dp</item>
+        <item name="android:textSize">8pt</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:layout_height">40dp</item>
+    </style>
+
+
+
+</resources>

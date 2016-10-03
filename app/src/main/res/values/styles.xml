@@ -1,0 +1,46 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColorPrimaryInverse">@color/colorLightBlue</item>
+        <item name="android:colorBackground">@color/background_material</item>
+    </style>
+
+
+    <style name="AppTheme.GreetActivityTheme">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Widget.MyApp.HeaderBar.Spinner"
+        parent="Widget.AppCompat.Spinner.DropDown.ActionBar">
+        <item name="android:background">@color/colorWhite</item>
+        <item name="android:dropDownSelector">@color/colorWhite</item>
+        <item name="android:colorBackground">@color/colorWhite</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:divider">@null</item>
+    </style>
+
+    <style name="AppTheme.ButtonTheme">
+        <item name="android:background">@color/colorLightBlue</item>
+        <item name="android:paddingLeft">30dp</item>
+        <item name="android:paddingRight">30dp</item>
+        <item name="android:textSize">8pt</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:layout_height">40dp</item>
+    </style>
+
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+</resources>

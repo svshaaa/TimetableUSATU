@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Расписание УГАТУ</string>
+    <string name="Start_Using">Начать использование</string>
+    <string name="action_settings">Настройки</string>
+    <string name="choice_group_text">Пожалуйста, выберите факультет, курс и группу</string>
+    <string name="choice_title">Выбор группы</string>
+    <string name="choice_next">ОК</string>
+    <string name="greet_text_slogan">Расписание пар твоего любимого вуза всегда с тобой</string>
+    <string name="course">Курс:</string>
+    <string name="faculty">Факультет:</string>
+    <string name="group">Группа:</string>
+</resources>
