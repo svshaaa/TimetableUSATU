@@ -23,7 +23,7 @@ public class FillFragment {
         linearGeneral.removeAllViews();
         linearDate = (LinearLayout) tableDay.findViewById(R.id.linearDate);
         tvDate = (TextView) tableDay.findViewById(R.id.tvDate);
-        tvDate.setText(MainActivity.weeksName[MainActivity.selectedWeek][0]);
+        tvDate.setText(MainActivity.weeksName[MainActivity.selectedWeek][i]);
         increate = true;
 
         String[] selectionArgs = new String[]{MainActivity.weeks[MainActivity.selectedWeek][i], MainActivity.savedId};
