@@ -12,26 +12,45 @@
     <string name="group">Group:</string>
     <string name="fragment1">Fragment 1</string>
     <string name="fragment2">Fragment 2</string>
+    <string name="timetable_date_error">No schedules on this day</string>
+
+
+    <string name="FirstLesson">1 pair 8:00 AM - 9:35 AM</string>
+    <string name="SecondLesson">2 pair 9:45 AM - 11:20 AM</string>
+    <string name="ThirdLesson">3 pair 0:10 PM - 1:45 PM</string>
+    <string name="FourthLesson">4 pair 1:55 PM - 3:30 PM</string>
+    <string name="FifthLesson">5 pair 4:10 PM - 5:45 PM</string>
+    <string name="SixthLesson">6 pair 5:55 PM - 7:30 PM</string>
+    <string name="SeventhLesson">7 pair 8:05 PM - 9:40 PM</string>
 
     <string-array name="weeks_list">
-        <item>1 неделя</item>
-        <item>2 неделя</item>
-        <item>3 неделя</item>
-        <item>4 неделя</item>
-        <item>5 неделя</item>
-        <item>6 неделя</item>
-        <item>7 неделя</item>
-        <item>8 неделя</item>
-        <item>9 неделя</item>
-        <item>10 неделя</item>
-        <item>11 неделя</item>
-        <item>12 неделя</item>
-        <item>13 неделя</item>
-        <item>14 неделя</item>
-        <item>15 неделя</item>
-        <item>16 неделя</item>
-        <item>17 неделя</item>
-        <item>18 неделя</item>
+        <item>1 week</item>
+        <item>2 week</item>
+        <item>3 week</item>
+        <item>4 week</item>
+        <item>5 week</item>
+        <item>6 week</item>
+        <item>7 week</item>
+        <item>8 week</item>
+        <item>9 week</item>
+        <item>10 week</item>
+        <item>11 week</item>
+        <item>12 week</item>
+        <item>13 week</item>
+        <item>14 week</item>
+        <item>15 week</item>
+        <item>16 week</item>
+        <item>17 week</item>
+        <item>18 week</item>
+    </string-array>
+
+    <string-array name="week_day_list">
+        <item>MONDAY</item>
+        <item>TUESDAY</item>
+        <item>WEDNESDAY</item>
+        <item>THURSDAY</item>
+        <item>FRIDAY</item>
+        <item>SATURDAY</item>
     </string-array>
 
 </resources>

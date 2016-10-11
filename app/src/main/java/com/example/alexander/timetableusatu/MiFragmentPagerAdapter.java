@@ -13,8 +13,7 @@ import com.example.alexander.timetableusatu.fragments.FragmentWednesday;
 
 public class MiFragmentPagerAdapter extends FragmentPagerAdapter {
     final int PAGE_COUNT = 6;
-    private final String tabTitles[] =
-            new String[] {"Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"};
+    private final String tabTitles[] =  MainActivity.getAppContext().getResources().getStringArray(R.array.week_day_list);
 
     public MiFragmentPagerAdapter(FragmentManager fm) {
         super(fm);

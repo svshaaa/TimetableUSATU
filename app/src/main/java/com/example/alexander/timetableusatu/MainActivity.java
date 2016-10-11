@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.SQLException;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -23,12 +24,16 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.common.api.GoogleApiClient;
+
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity {
 
     public static final String APP_PREFERENCES_GROUP_NAME = "prefGroupName";
     public static final String APP_PREFERENCES_GROUP_ID = "prefGroupId";
@@ -46,14 +51,17 @@ public class MainActivity extends AppCompatActivity{
     public static float scale;
     static ViewPager viewPager;
     int DIALOG_DATE;
-    static Spinner weekSpinnerToolbar;
+    private static Spinner weekSpinnerToolbar;
     public static int selectedWeek;
     static int selectedWeekDay;
     public static String savedTitle, savedId;
-    TextView textViewTitle;
-    Calendar dateAndTime = Calendar.getInstance();
     private static Context con;
-    MenuItem menuItemToday;
+
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +74,7 @@ public class MainActivity extends AppCompatActivity{
         prefName = getSharedPreferences(APP_PREFERENCES_GROUP_NAME, Context.MODE_PRIVATE);
         prefId = getSharedPreferences(APP_PREFERENCES_GROUP_ID, Context.MODE_PRIVATE);
 
-        if (prefName.getBoolean(String.valueOf(APP_PREFERENCES_CHECK_IN ), false) != true) {
+        if (!prefName.getBoolean(String.valueOf(APP_PREFERENCES_CHECK_IN), false)) {
             Intent intent = new Intent(this, GreetActivity.class);
             startActivity(intent);
         }
@@ -87,7 +95,6 @@ public class MainActivity extends AppCompatActivity{
         Cursor c = myDbHelper.query("SCHEDULE", null, null, null, null, null, null);
         if (c.moveToFirst()) {
             do {
-
             } while (c.moveToNext());
         }
 
@@ -97,7 +104,7 @@ public class MainActivity extends AppCompatActivity{
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         //apportunity to changing selected group
-        textViewTitle = (TextView) findViewById(R.id.textViewTittle);
+        TextView textViewTitle = (TextView) findViewById(R.id.textViewTittle);
         textViewTitle.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
@@ -133,9 +140,7 @@ public class MainActivity extends AppCompatActivity{
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 getSupportActionBar().getThemedContext(),
                 R.layout.appbar_filter_title,
-                new String[]{"1 неделя", "2 неделя", "3 неделя", "4 неделя", "5 неделя", "6 неделя",
-                        "7 неделя", "8 неделя", "9 неделя", "10 неделя", "11 неделя", "12 неделя",
-                        "13 неделя", "14 неделя", "15 неделя", "16 неделя", "17 неделя", "18 неделя"});
+                getResources().getStringArray(R.array.weeks_list));
 
         adapter.setDropDownViewResource(R.layout.appbar_filter_list);
 
@@ -164,16 +169,21 @@ public class MainActivity extends AppCompatActivity{
             }
         });
 
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
-        menuItemToday = menu.findItem(R.id.action_today);
+        MenuItem menuItemToday = menu.findItem(R.id.action_today);
         onOptionsItemSelected(menuItemToday);
         return true;
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -185,15 +195,15 @@ public class MainActivity extends AppCompatActivity{
         if (id == R.id.action_DatePikerDialog) {
             showDialog(DIALOG_DATE);
         }
-        if (id == R.id.action_today){
+        if (id == R.id.action_today) {
             Calendar c = new GregorianCalendar();
             todayDate = normalDay(c.get(Calendar.DATE)) + "." + normalMonth(c.get(Calendar.MONTH)) + "." + c.get(Calendar.YEAR);
             weekSpinnerToolbar.setSelection(getWeekByDate(todayDate));
             int today = c.get(Calendar.DAY_OF_WEEK);
-            //setNewViewPager();
-            if(today == 1 ) {
+            setNewViewPager();
+            if (today == 1) {
                 viewPager.setCurrentItem(5);
-            }else {
+            } else {
                 viewPager.setCurrentItem(today - 2);
             }
         }
@@ -201,26 +211,30 @@ public class MainActivity extends AppCompatActivity{
         return super.onOptionsItemSelected(item);
     }
 
+
     protected Dialog onCreateDialog(int id) {
+        Calendar dateAndTime = Calendar.getInstance();
         if (id == DIALOG_DATE) {
             DatePickerDialog myDatePikerDialog = new DatePickerDialog(this, myCallBack, dateAndTime.get(Calendar.YEAR),
-                                                                                        dateAndTime.get(Calendar.MONTH),
-                                                                                        dateAndTime.get(Calendar.DAY_OF_MONTH));
+                    dateAndTime.get(Calendar.MONTH),
+                    dateAndTime.get(Calendar.DAY_OF_MONTH));
             todayDate = normalDay(dateAndTime.get(Calendar.DAY_OF_MONTH)) + "."
-                            + normalMonth(dateAndTime.get(Calendar.MONTH)) + "."
-                            + dateAndTime.get(Calendar.YEAR);
+                    + normalMonth(dateAndTime.get(Calendar.MONTH)) + "."
+                    + dateAndTime.get(Calendar.YEAR);
             return myDatePikerDialog;
         }
         return super.onCreateDialog(id);
     }
 
-    public static int weekday(int day, int month, int year){
-        month+=1;
+
+    public static int weekday(int day, int month, int year) {
+        month += 1;
         String days[] = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
         int a = (14 - month) / 12, y = year - a, m = month + 12 * a - 2;
         Log.i("DataTimePicker", "selected week day: " + days[(7000 + (day + y + y / 4 - y / 100 + y / 400 + (31 * m) / 12)) % 7]);
         return (7000 + (day + y + y / 4 - y / 100 + y / 400 + (31 * m) / 12)) % 7;
     }
+
     //выбор даты датапикера
     DatePickerDialog.OnDateSetListener myCallBack = new DatePickerDialog.OnDateSetListener() {
 
@@ -234,37 +248,37 @@ public class MainActivity extends AppCompatActivity{
                 setNewViewPager();
                 viewPager.setCurrentItem(selectedWeekDay - 1);
             } else {
-                Toast.makeText(MainActivity.this, "На эту дату нет расписания", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, R.string.timetable_date_error, Toast.LENGTH_SHORT).show();
             }
         }
 
     };
 
-    public static int getWeekByDate(String date){
-        for (int i = 0; i<17; i++)
-            for(int j = 0; j<6; j++) {
+    public static int getWeekByDate(String date) {
+        for (int i = 0; i < 17; i++)
+            for (int j = 0; j < 6; j++) {
                 if (weeks[i][j].equals(date))
                     return i;
             }
         return 17;
     }
 
-    public static void DateGeneration(){
+    public void DateGeneration() {
         Calendar c = Calendar.getInstance();
         Calendar cNow = Calendar.getInstance();
         c.set(c.get(Calendar.YEAR), 7, 20);
-        if(cNow.compareTo(c) == 1){
+        if (cNow.compareTo(c) == 1) {
             c.set(c.get(Calendar.YEAR), 8, 1);
         } else {
             c.set(c.get(Calendar.YEAR), 0, 1);
             c.roll(Calendar.WEEK_OF_YEAR, 6);
         }
-        while(c.get(Calendar.DAY_OF_WEEK) >2){
+        while (c.get(Calendar.DAY_OF_WEEK) > 2) {
             c.roll(Calendar.DAY_OF_YEAR, false);
         }
         String currentMonth;
-        for(int i=0; i<18; i++){
-            for(int j=0; j<7; j++){
+        for (int i = 0; i < 18; i++) {
+            for (int j = 0; j < 7; j++) {
                 weeks[i][j] = normalDay(c.get(Calendar.DATE)) + "." + normalMonth(c.get(Calendar.MONTH)) + "." + c.get(Calendar.YEAR);
                 currentMonth = getCurrentMonth(c);
                 weeksName[i][j] = String.valueOf(c.get(Calendar.DATE)) + " " + currentMonth;
@@ -273,45 +287,72 @@ public class MainActivity extends AppCompatActivity{
         }
     }
 
-    private static String getCurrentMonth(Calendar c) {
+    private String getCurrentMonth(Calendar c) {
         Locale locale = Locale.getDefault();
-        String month = "month";
-        if (c.getDisplayName(Calendar.MONTH, Calendar.LONG,locale).equals("August")) month = "августа";
-        else if (c.getDisplayName(Calendar.MONTH, Calendar.LONG,locale).equals("September")) month=  "сентября";
-        else if (c.getDisplayName(Calendar.MONTH, Calendar.LONG,locale).equals("October")) month = "октября";
-        else if (c.getDisplayName(Calendar.MONTH, Calendar.LONG,locale).equals("November")) month = "ноября";
-        else if (c.getDisplayName(Calendar.MONTH, Calendar.LONG,locale).equals("December")) month = "декабря";
-        else if (c.getDisplayName(Calendar.MONTH, Calendar.LONG,locale).equals("January")) month = "января";
-        else if (c.getDisplayName(Calendar.MONTH, Calendar.LONG,locale).equals("February")) month = "февраля";
-        else if (c.getDisplayName(Calendar.MONTH, Calendar.LONG,locale).equals("March")) month = "марта";
-        else if (c.getDisplayName(Calendar.MONTH, Calendar.LONG,locale).equals("April")) month = "апреля";
-        else if (c.getDisplayName(Calendar.MONTH, Calendar.LONG,locale).equals("May")) month = "мая";
-        else if (c.getDisplayName(Calendar.MONTH, Calendar.LONG,locale).equals("June")) month = "июня";
-        else if (c.getDisplayName(Calendar.MONTH, Calendar.LONG,locale).equals("Jule")) month = "июля";
-        return month;
+        return c.getDisplayName(Calendar.MONTH, Calendar.LONG, locale);
     }
 
-    public static String normalDay(int dayOfMonth){
-        if(dayOfMonth/10 == 0) {
+    public static String normalDay(int dayOfMonth) {
+        if (dayOfMonth / 10 == 0) {
             String returnDay = "0" + dayOfMonth;
             return returnDay;
         } else return Integer.toString(dayOfMonth);
     }
 
-    public static String normalMonth(int monthOfYear){
+    public static String normalMonth(int monthOfYear) {
         monthOfYear++;
-        if(monthOfYear/10 == 0) {
+        if (monthOfYear / 10 == 0) {
             String returnMonth = "0" + monthOfYear;
             return returnMonth;
         } else return Integer.toString(monthOfYear);
     }
 
-    public void setNewViewPager(){
+    public void setNewViewPager() {
         viewPager.setAdapter(new MiFragmentPagerAdapter(
                 getSupportFragmentManager()));
     }
 
     public static Context getAppContext() {
         return MainActivity.con;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client.connect();
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "Main Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app deep link URI is correct.
+                Uri.parse("android-app://com.example.alexander.timetableusatu/http/host/path")
+        );
+        AppIndex.AppIndexApi.start(client, viewAction);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "Main Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app deep link URI is correct.
+                Uri.parse("android-app://com.example.alexander.timetableusatu/http/host/path")
+        );
+        AppIndex.AppIndexApi.end(client, viewAction);
+        client.disconnect();
     }
 }

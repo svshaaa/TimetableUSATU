@@ -10,4 +10,44 @@
     <string name="course">Курс:</string>
     <string name="faculty">Факультет:</string>
     <string name="group">Группа:</string>
+    <string name="timetable_date_error">На этот день нет расписания...</string>
+
+    <string name="FirstLesson">1 пара 8:00 - 9:35</string>
+    <string name="SecondLesson">2 пара 9:45 - 11:20</string>
+    <string name="ThirdLesson">3 пара 12:10 - 13:45</string>
+    <string name="FourthLesson">4 пара 13:55 - 15:30</string>
+    <string name="FifthLesson">5 пара 16:10 - 17:45</string>
+    <string name="SixthLesson">6 пара 17:55 - 19:30</string>
+    <string name="SeventhLesson">7 пара 20:05 - 21:40</string>
+
+    <string-array name="weeks_list">
+        <item>1 неделя</item>
+        <item>2 неделя</item>
+        <item>3 неделя</item>
+        <item>4 неделя</item>
+        <item>5 неделя</item>
+        <item>6 неделя</item>
+        <item>7 неделя</item>
+        <item>8 неделя</item>
+        <item>9 неделя</item>
+        <item>10 неделя</item>
+        <item>11 неделя</item>
+        <item>12 неделя</item>
+        <item>13 неделя</item>
+        <item>14 неделя</item>
+        <item>15 неделя</item>
+        <item>16 неделя</item>
+        <item>17 неделя</item>
+        <item>18 неделя</item>
+    </string-array>
+
+    <string-array name="week_day_list">
+        <item>ПОНЕДЕЛЬНИК</item>
+        <item>ВТОРНИК</item>
+        <item>СРЕДА</item>
+        <item>ЧЕТВЕРГ</item>
+        <item>ПЯТНИЦА</item>
+        <item>СУББОТА</item>
+    </string-array>
+
 </resources>
